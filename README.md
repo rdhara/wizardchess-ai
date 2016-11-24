@@ -1,1 +1,1 @@
-# vocochess-ai
+# wechess-ai
