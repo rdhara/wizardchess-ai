@@ -11,7 +11,7 @@ from collections import deque
 
 
 # intensity threshold to separate silences from voice
-THRESHOLD = 1000
+THRESHOLD = 2000
 SILENCE_LIMIT = 1
 PREV_AUDIO = 0.5
 FORMAT = pyaudio.paInt16
@@ -22,7 +22,7 @@ CHUNK = 1024
 
 def get_voice_recording(threshold=THRESHOLD):
 
-    RECORD_SECONDS = 30
+    RECORD_SECONDS = 5
     p = pyaudio.PyAudio()
 
     stream = p.open(format=FORMAT,
@@ -36,7 +36,7 @@ def get_voice_recording(threshold=THRESHOLD):
     cur_data = ''
     rel = RATE/CHUNK
     slid_win = deque()
-    prev_audio = deque(maxlen=PREV_AUDIO * rel)
+    prev_audio = deque()
     started = False
 
     for _ in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
@@ -51,7 +51,7 @@ def get_voice_recording(threshold=THRESHOLD):
             print("Finished")
             started = False
             slid_win = deque()
-            prev_audio = deque(maxlen=0.5 * rel)
+            prev_audio = deque()
             audio2send = []
         else:
             prev_audio.append(cur_data)
