@@ -35,7 +35,7 @@ def get_voice_recording(threshold=THRESHOLD):
     audio2send = []
     cur_data = ''
     rel = RATE/CHUNK
-    slid_win = deque()
+    slid_win = deque(maxlen=SILENCE_LIMIT * rel)
     prev_audio = deque()
     started = False
 
@@ -50,14 +50,13 @@ def get_voice_recording(threshold=THRESHOLD):
         elif started:
             print("Finished")
             started = False
-            slid_win = deque()
+            slid_win = deque(maxlen=SILENCE_LIMIT * rel)
             prev_audio = deque()
-            audio2send = []
         else:
             prev_audio.append(cur_data)
 
     print("* Done recording")
-    save_speech(list(prev_audio) + audio2send, p)
+    save_speech(audio2send + list(prev_audio), p)
 
 
 def save_speech(data, p):
