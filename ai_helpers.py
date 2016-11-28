@@ -20,7 +20,7 @@ RATE = 16000
 CHUNK = 1024
 
 
-def get_voice_recording(threshold=THRESHOLD, num_phrases = 2):
+def get_voice_recording(threshold=THRESHOLD):
 
     RECORD_SECONDS = 30
     p = pyaudio.PyAudio()
@@ -38,7 +38,6 @@ def get_voice_recording(threshold=THRESHOLD, num_phrases = 2):
     slid_win = deque()
     prev_audio = deque(maxlen=PREV_AUDIO * rel)
     started = False
-    n = num_phrases
 
     # while (num_phrases == -1 or n > 0):
     for _ in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
@@ -55,7 +54,6 @@ def get_voice_recording(threshold=THRESHOLD, num_phrases = 2):
             slid_win = deque()
             prev_audio = deque(maxlen=0.5 * rel)
             audio2send = []
-            n -= 1
         else:
             prev_audio.append(cur_data)
 
