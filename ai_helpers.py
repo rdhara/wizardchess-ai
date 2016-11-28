@@ -39,7 +39,6 @@ def get_voice_recording(threshold=THRESHOLD):
     prev_audio = deque(maxlen=PREV_AUDIO * rel)
     started = False
 
-    # while (num_phrases == -1 or n > 0):
     for _ in range(0, int(RATE / CHUNK * RECORD_SECONDS)):
         cur_data = stream.read(CHUNK)
         slid_win.append(math.sqrt(abs(audioop.avg(cur_data, 4))))
