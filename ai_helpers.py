@@ -47,20 +47,45 @@ def get_phoneme_frequencies(phonemes):
     return dict(freqs)
 
 
-# return a dictionary mapping word to P(word|phoneme) for all words
+# Return a dictionary mapping word to P(word|phoneme) for all words
 def get_conditional_probabilities(phonemes):
     freqs = get_phoneme_frequencies(phonemes)
     p_words_given_phonemes = {}
-    # for each phoneme
     for phoneme in freqs:
-        # count how many time each phoneme appears across all words
+        # Count how many time each phoneme appears across all words
         p_word_given_phoneme = Counter()
         for word in phonemes:
             for word_phoneme in phonemes[word]:
                 if word_phoneme == phoneme:
                     p_word_given_phoneme[word] += 1
-        # divide by the total number of occurrences for each phoneme
+        # Divide by the total number of occurrences for each phoneme
         for word in p_word_given_phoneme.keys():
             p_word_given_phoneme[word] /= 1.0 * freqs[phoneme]
         p_words_given_phonemes[phoneme] = dict(p_word_given_phoneme)
     return p_words_given_phonemes
+
+
+# Build a move from interpreted voice input
+def move_builder(piece, source_col, source_row, action, dest_col, dest_row):
+
+    action_string = ''
+    if action == 'kingside castle':
+        return 'O-O'
+    elif action == 'queenside castle':
+        return 'O-O-O'
+    elif action == 'takes':
+        action_string = 'x'
+
+    piece_string = ''
+    if piece == 'knight':
+        piece_string = 'N'
+    elif piece == 'bishop':
+        piece_string = 'B'
+    elif piece == 'king':
+        piece_string = 'K'
+    elif piece == 'queen':
+        piece_string = 'Q'
+    elif piece == 'rook':
+        piece_string = 'R'
+
+    return piece_string + source_col + source_row + action_string + dest_col + dest_row
