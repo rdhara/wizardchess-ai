@@ -1,1 +1,1 @@
-# wechess-ai
+# wizardchess-ai
