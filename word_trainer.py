@@ -8,7 +8,7 @@ import wave
 CHUNK = 1024
 FORMAT = pyaudio.paInt16
 CHANNELS = 2
-RATE = 44100
+RATE = 7800
 
 
 def record_audio(n_sec=5, output=None):
@@ -43,3 +43,4 @@ def record_audio(n_sec=5, output=None):
         wf.close()
 
     return frames
+

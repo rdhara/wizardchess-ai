@@ -86,3 +86,6 @@ ENV/
 
 # Pycharm
 .idea/
+
+# Training Data
+training/
