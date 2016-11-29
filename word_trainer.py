@@ -44,3 +44,16 @@ def record_audio(n_sec=5, output=None):
 
     return frames
 
+training_list = ['king', 'queen', 'knight', 'bishop', 'rook', 'pawn',
+                 '1', '2', '3', '4', '5', '6', '7', '8',
+                 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
+                 'kingside', 'queenside', 'castle', 'to', 'takes']
+
+for i in range(50):
+    for item in training_list:
+        if len(item) > 2:
+            rec_time = 2
+        else:
+            rec_time = 1.5
+        print('SAY: ' + item)
+        record_audio(n_sec=rec_time, output='training/{}_{}.wav'.format(item, i+1))

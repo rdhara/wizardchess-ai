@@ -148,6 +148,7 @@ def get_phoneme_frequencies(phonemes):
             freqs[phoneme] += 1
     return dict(freqs)
 
+
 # return a dictionary mapping word to P(word|phoneme) for all words
 def get_conditional_probabilities(phonemes):
     freqs = get_phoneme_frequencies(phonemes)
