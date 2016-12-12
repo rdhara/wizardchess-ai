@@ -32,7 +32,8 @@ phonemes = {
     'g': ['JH', 'IY'],
     'h': ['EY', 'CH'],
     'kingside': ['K', 'IH', 'NG', 'S', 'AY', 'D'],
-    'queenside': ['K', 'W', 'IY', 'N', 'S', 'AY', 'D']
+    'queenside': ['K', 'W', 'IY', 'N', 'S', 'AY', 'D'],
+    'to': ['T', 'UW']
 }
 
 

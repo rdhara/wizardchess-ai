@@ -7,8 +7,8 @@ import wave
 
 CHUNK = 1024
 FORMAT = pyaudio.paInt16
-CHANNELS = 2
-RATE = 7800
+CHANNELS = 1
+RATE = 16000
 
 
 def record_audio(n_sec=5, output=None):
@@ -49,7 +49,7 @@ training_list = ['king', 'queen', 'knight', 'bishop', 'rook', 'pawn',
                  'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
                  'kingside', 'queenside', 'castle', 'to', 'takes']
 
-for i in range(50):
+for i in range(23, 25):
     for item in training_list:
         if len(item) > 2:
             rec_time = 2
