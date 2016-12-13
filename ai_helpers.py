@@ -37,13 +37,13 @@ phonemes = {
 }
 
 
-# return a dictionary mapping phonemes to their frequencies
+# Return a dictionary mapping phonemes to their respective frequencies
 def get_phoneme_frequencies(phonemes):
     # Counter to store phoneme frequencies
     freqs = Counter()
     # increment the counter for each phoneme
-    for list in phonemes.values():
-        for phoneme in list:
+    for lst in phonemes.values():
+        for phoneme in lst:
             freqs[phoneme] += 1
     return dict(freqs)
 
