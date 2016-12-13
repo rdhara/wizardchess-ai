@@ -15,7 +15,7 @@ file_names = ['king', 'queen', 'knight', 'bishop', 'rook', 'pawn',
                  'kingside', 'queenside', 'castle', 'to', 'takes']
 
 for word, file_name in zip(words, file_names):
-    # construct each line as specified at http://cmusphinx.sourceforge.net/wiki/tutorialam
+    # Construct each line as specified at http://cmusphinx.sourceforge.net/wiki/tutorialam
     line_template = '<s> '
     line_template += word
     line_template += ' </s> ('
