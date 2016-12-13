@@ -90,10 +90,3 @@ def move_builder(piece, source_col, source_row, action, dest_col, dest_row):
         piece_string = 'R'
 
     return piece_string + source_col + source_row + action_string + dest_col + dest_row
-
-sample_game = ['e4', 'e5', 'Nf3', 'Nf6', 'Nc3', 'Nc6']
-
-
-def get_next_move():
-    return sample_game.pop(0)
-
