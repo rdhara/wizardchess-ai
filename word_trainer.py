@@ -49,11 +49,13 @@ training_list = ['king', 'queen', 'knight', 'bishop', 'rook', 'pawn',
                  'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
                  'kingside', 'queenside', 'castle', 'to', 'takes']
 
-for i in range(1, 51):
-    for item in training_list:
-        if len(item) > 2:
-            rec_time = 2
-        else:
-            rec_time = 1.5
-        print('SAY: ' + item)
-        record_audio(n_sec=rec_time, output='training/{}_{}.wav'.format(item, i+1))
+
+def start_training():
+    for i in range(1, 51):
+        for item in training_list:
+            if len(item) > 2:
+                rec_time = 2
+            else:
+                rec_time = 1.5
+            print('SAY: ' + item)
+            record_audio(n_sec=rec_time, output='training/{}_{}.wav'.format(item, i+1))

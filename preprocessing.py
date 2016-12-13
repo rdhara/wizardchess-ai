@@ -2,7 +2,12 @@
 Contains functions needed to generate and traverse the HMM
 """
 
+import glob
 import pickle
+
+from multiprocessing import Pool
+from phoneme_decoder import *
+
 
 # get the training set from the pickle file
 # dictionary mapping words to lists of phonemes returned by sphinx
@@ -45,6 +50,28 @@ ranks = map(str, range(1,9))
 actions = ['to', 'takes', 'castle', 'kingside', 'queenside']
 indices_to_words = {}
 words = piece_names + files + ranks + actions
+
+
+
+file_list = [i for i in glob.glob('wav/*') if '.wav' in i]
+
+# Import phonemes of training sets
+for w in words:
+    training_set[w] = []
+
+
+# For each file name
+def get_phoneme_pool(filepath):
+    return (filepath.split('/wav/')[1].split('_')[0], get_phonemes(filepath))
+
+
+def run_pool():
+    pool_party = Pool(processes=2)
+
+    for res in pool_party.imap_unordered(get_phoneme_pool, file_list):
+        training_set[res[0]].append(res[1])
+
+
 for index, word in enumerate(words):
     indices_to_words[index] = (word, len(phonemes[word]))
 
