@@ -9,8 +9,6 @@ from pocketsphinx import DefaultConfig, Decoder, get_model_path, get_data_path
 
 from pocketsphinx.pocketsphinx import *
 from sphinxbase.sphinxbase import *
-from tqdm import *
-
 
 
 MODELDIR = get_model_path()
@@ -62,5 +60,5 @@ def get_phoneme_pool(filepath):
 def run_pool():
     pool_party = Pool(processes=2)
 
-    for res in tqdm(pool_party.imap_unordered(get_phoneme_pool, file_list)):
+    for res in pool_party.imap_unordered(get_phoneme_pool, file_list):
         training_set[res[0]].append(res[1])
