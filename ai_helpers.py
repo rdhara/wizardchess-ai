@@ -3,6 +3,7 @@ Helper functions and definitions for voice recognition and board API calls
 """
 
 from collections import Counter
+import pickle
 
 phonemes = {
     'pawn': ['P', 'AO', 'N'],
@@ -70,9 +71,9 @@ def get_conditional_probabilities(phonemes):
 def move_builder(piece, source_col, source_row, action, dest_col, dest_row):
 
     action_string = ''
-    if action == 'kingside castle':
+    if action == 'castle kingside':
         return 'O-O'
-    elif action == 'queenside castle':
+    elif action == 'castle queenside':
         return 'O-O-O'
     elif action == 'takes':
         action_string = 'x'
@@ -110,3 +111,31 @@ actual_phonemes = viterbi_data["actual_phonemes"]
 words = viterbi_data["words"]
 w_to_i = viterbi_data["w_to_i"]
 
+def viterbi_update(raw_ph_input):
+    ph_input = [ph for ph in raw_ph_input if ph in emission_model.keys()]
+    # initialization
+    ml_sequence = []
+    v_scores = Counter()
+    for key,val in priors.iteritems():
+        v_scores[key] = val
+    for ph in ph_input:
+        assert(ph in emission_model.keys())
+        new_scores = Counter()
+        emission = emission_model[ph]
+        for word in words:
+            tmp_score = max([transition_probabilities[w_to_i[word_p]][w_to_i[word]] \
+                             *v_scores[word_p] for word_p in words])
+            new_scores[word] = tmp_score * emission[word]
+        # normalize
+        total = float(sum(new_scores.values()))
+        for key in new_scores:
+            new_scores[key] /= total
+        most_likely = max(new_scores, key=new_scores.get)
+        most_likely_score = new_scores[most_likely]
+        ml_sequence.append(most_likely)
+        v_scores = new_scores
+    assert(len(ml_sequence) == len(ph_input))
+    collapsed = [ml_sequence[0]] + map(lambda (a,b): None if a==b else b,
+                                       zip(ml_sequence[:-1],ml_sequence[1:]))
+    ret = [i for i in collapsed if i]
+    return ret
