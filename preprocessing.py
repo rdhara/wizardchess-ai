@@ -2,71 +2,7 @@
 Contains functions needed to generate and traverse the HMM
 """
 
-import glob
 import pickle
-import os
-
-from multiprocessing import Pool
-from tqdm import *
-
-from pocketsphinx import DefaultConfig, Decoder, get_model_path, get_data_path
-from pocketsphinx.pocketsphinx import *
-from sphinxbase.sphinxbase import *
-
-# **************************** Importing the training data ****************************
-
-# MODELDIR = get_model_path()
-# DATADIR = get_data_path()
-
-
-# config = Decoder.default_config()
-# config.set_string('-hmm', os.path.join(MODELDIR, 'en-us-adapt'))
-# config.set_string('-allphone', os.path.join(MODELDIR, 'chess-phone.lm.bin'))
-# config.set_string('-dict', '/Users/chrischen/CS182/wechess-ai/chess-project.dic')
-# config.set_float('-lw', 2.0)
-# config.set_float('-beam', 1e-10)
-# config.set_float('-pbeam', 1e-10)
-
-# # Decode streaming data.
-# decoder = Decoder(config)
-
-
-# def get_phonemes(file):
-#     # Decode streaming data
-#     decoder = Decoder(config)
-#     decoder.start_utt()
-#     stream = open(file, 'rb')
-#     i=0
-#     while True:
-#         buf = stream.read(1024)
-#         if buf:
-#             decoder.process_raw(buf, False, False)
-#         else:
-#             break
-#     decoder.end_utt()
-
-#     hypothesis = decoder.hyp()
-#     return [seg.word for seg in decoder.seg()]
-
-# file_list = [i for i in glob.glob('wav/*') if '.wav' in i]
-
-# # import phonemes of training sets
-# training_set = {}
-# for w in words:
-#     training_set[w] = []
-
-# # for each file name
-
-# def get_phoneme_pool(filepath):
-#     return (filepath.split('/wav/')[1].split('_')[0], get_phonemes(filepath))
-
-# pool_party = Pool(processes=2)
-
-# for res in tqdm(pool_party.imap_unordered(get_phoneme_pool, file_list)):
-#     training_set[res[0]].append(res[1])
-
-
-# ************************************************************************************
 
 # get the training set from the pickle file
 # dictionary mapping words to lists of phonemes returned by sphinx
@@ -103,8 +39,6 @@ phonemes = {
     'to': ['T', 'UW'],
 }
 
-
-
 piece_names = ['king', 'queen', 'knight', 'bishop', 'rook', 'pawn']
 files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
 ranks = map(str, range(1,9))
@@ -113,8 +47,6 @@ indices_to_words = {}
 words = piece_names + files + ranks + actions
 for index, word in enumerate(words):
     indices_to_words[index] = (word, len(phonemes[word]))
-
-
 
 transition_probabilities = [[0 for _ in range(27)] for _ in range(27)]
 
