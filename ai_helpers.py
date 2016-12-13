@@ -97,3 +97,14 @@ sample_game = ['e4', 'e5', 'Nf3', 'Nf6', 'Nc3', 'Nc6']
 def get_next_move():
     return sample_game.pop(0)
 
+# load the ncessary data
+with open('viterbi_data.pickle', 'rb') as handle:
+    viterbi_data = pickle.load(handle)
+
+priors = viterbi_data["priors"]
+transition_probabilities = viterbi_data["transition_probabilities"]
+indices_to_words = viterbi_data["indices_to_words"]
+emission_model = viterbi_data["emission_model"]
+actual_phonemes = viterbi_data["actual_phonemes"]
+words = viterbi_data["words"]
+w_to_i = viterbi_data["w_to_i"]
